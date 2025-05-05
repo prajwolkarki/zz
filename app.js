@@ -166,5 +166,49 @@ function showRandomQuote() {
     currentIndex = randomIndex;
     displayQuote();
 }
+function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode", darkModeToggle.checked);
+    savePreferences();
+}
 
+function increaseFontSize() {
+    const currentSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--font-size'));
+    if (currentSize < 2.4) {
+        document.documentElement.style.setProperty('--font-size', `${currentSize + 0.1}rem`);
+        savePreferences();
+    }
+}
+
+function decreaseFontSize() {
+    const currentSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--font-size'));
+    if (currentSize > 0.8) {
+        document.documentElement.style.setProperty('--font-size', `${currentSize - 0.1}rem`);
+        savePreferences();
+    }
+}
+
+function savePreferences() {
+    const fontSize = getComputedStyle(document.documentElement).getPropertyValue('--font-size');
+    const preferences = {
+        darkMode: darkModeToggle.checked,
+        fontSize: fontSize,
+        category: currentCategory
+    };
+    localStorage.setItem('quoteGeneratorPrefs', JSON.stringify(preferences));
+}
+function loadPreferences() {
+    const savedPrefs = localStorage.getItem('quoteGeneratorPrefs');
+    if (savedPrefs) {
+        const prefs = JSON.parse(savedPrefs);
+        darkModeToggle.checked = prefs.darkMode;
+        document.body.classList.toggle("dark-mode", prefs.darkMode);
+        if (prefs.fontSize) {
+            document.documentElement.style.setProperty('--font-size', prefs.fontSize);
+        }
+        if (prefs.category) {
+            currentCategory = prefs.category;
+            categorySelect.value = prefs.category;
+        }
+    }
+}
 document.addEventListener("DOMContentLoaded", initApp);

@@ -1,13 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quote Generator feat:Prajwol</title>
-    <link rel="stylesheet" href="./styles/style.css">
-</head>
-<body>
-    
-<script src="./app.js"></script>
-</body>
+    <link rel="stylesheet" href="./styles/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="app-title">Quote Generator</h1>
+
+      <div class="settings">
+        <div class="theme-toggle">
+          <span class="mode-label">Dark Mode</span>
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-toggle" />
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="font-controls">
+          <span class="font-size-label">Font Size:</span>
+          <button id="decrease-font" class="button">A-</button>
+          <button id="increase-font" class="button">A+</button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <select id="category-select" class="category-select">
+          <option value="all">All Categories</option>
+          <option value="inspiration">Inspiration</option>
+          <option value="science">Science</option>
+          <option value="humor">Humor</option>
+          <option value="philosophy">Philosophy</option>
+        </select>
+        <button id="random-quote" class="button">Random Quote</button>
+      </div>
+
+      <div class="quote-card">
+        <p id="quote-text" class="quote-text"></p>
+        <p id="quote-author" class="quote-author"></p>
+      </div>
+
+      <div class="navigation-buttons">
+        <button id="prev-quote" class="button">Previous</button>
+        <button id="next-quote" class="button">Next</button>
+      </div>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
 </html>

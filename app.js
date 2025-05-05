@@ -56,6 +56,18 @@ function initApp() {
     filterQuotesByCategory();
     displayQuote();
 }
-
+function filterQuotesByCategory() {
+    if (currentCategory === "all") {
+        filteredQuotes = [];
+        for (const category in quotes) {
+            filteredQuotes = filteredQuotes.concat(quotes[category]);
+        }
+    } else {
+        filteredQuotes = quotes[currentCategory] || [];
+    }
+    if (currentIndex >= filteredQuotes.length) {
+        currentIndex = 0;
+    }
+}
 
 document.addEventListener("DOMContentLoaded", initApp);

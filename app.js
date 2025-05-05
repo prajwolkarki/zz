@@ -159,5 +159,12 @@ function showNextQuote() {
     }
     displayQuote();
 }
+function showRandomQuote() {
+    if (filteredQuotes.length === 0) return;
+    
+    const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
+    currentIndex = randomIndex;
+    displayQuote();
+}
 
 document.addEventListener("DOMContentLoaded", initApp);

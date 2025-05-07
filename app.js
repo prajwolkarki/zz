@@ -135,80 +135,92 @@ function displayQuote() {
   quoteAuthor.textContent = `— ${quote.author}`;
 }
 function handleCategoryChange() {
-    currentCategory = categorySelect.value;
-    currentIndex = 0;
-    filterQuotesByCategory();
-    displayQuote();
-    savePreferences();
+  currentCategory = categorySelect.value;
+  currentIndex = 0;
+  filterQuotesByCategory();
+  displayQuote();
+  savePreferences();
 }
 function showPreviousQuote() {
-    if (filteredQuotes.length === 0) return;
-    
-    currentIndex--;
-    if (currentIndex < 0) {
-        currentIndex = filteredQuotes.length - 1;
-    }
-    displayQuote();
+  if (filteredQuotes.length === 0) return;
+
+  currentIndex--;
+  if (currentIndex < 0) {
+    currentIndex = filteredQuotes.length - 1;
+  }
+  displayQuote();
 }
 function showNextQuote() {
-    if (filteredQuotes.length === 0) return;
-    
-    currentIndex++;
-    if (currentIndex >= filteredQuotes.length) {
-        currentIndex = 0;
-    }
-    displayQuote();
+  if (filteredQuotes.length === 0) return;
+
+  currentIndex++;
+  if (currentIndex >= filteredQuotes.length) {
+    currentIndex = 0;
+  }
+  displayQuote();
 }
 function showRandomQuote() {
-    if (filteredQuotes.length === 0) return;
-    
-    const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
-    currentIndex = randomIndex;
-    displayQuote();
+  if (filteredQuotes.length === 0) return;
+
+  const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
+  currentIndex = randomIndex;
+  displayQuote();
 }
 function toggleDarkMode() {
-    document.body.classList.toggle("dark-mode", darkModeToggle.checked);
-    savePreferences();
+  document.body.classList.toggle("dark-mode", darkModeToggle.checked);
+  savePreferences();
 }
 
 function increaseFontSize() {
-    const currentSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--font-size'));
-    if (currentSize < 2.4) {
-        document.documentElement.style.setProperty('--font-size', `${currentSize + 0.1}rem`);
-        savePreferences();
-    }
+  const currentSize = parseFloat(
+    getComputedStyle(document.documentElement).getPropertyValue("--font-size")
+  );
+  if (currentSize < 2.4) {
+    document.documentElement.style.setProperty(
+      "--font-size",
+      `${currentSize + 0.1}rem`
+    );
+    savePreferences();
+  }
 }
 
 function decreaseFontSize() {
-    const currentSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--font-size'));
-    if (currentSize > 0.8) {
-        document.documentElement.style.setProperty('--font-size', `${currentSize - 0.1}rem`);
-        savePreferences();
-    }
+  const currentSize = parseFloat(
+    getComputedStyle(document.documentElement).getPropertyValue("--font-size")
+  );
+  if (currentSize > 0.8) {
+    document.documentElement.style.setProperty(
+      "--font-size",
+      `${currentSize - 0.1}rem`
+    );
+    savePreferences();
+  }
 }
 
 function savePreferences() {
-    const fontSize = getComputedStyle(document.documentElement).getPropertyValue('--font-size');
-    const preferences = {
-        darkMode: darkModeToggle.checked,
-        fontSize: fontSize,
-        category: currentCategory
-    };
-    localStorage.setItem('quoteGeneratorPrefs', JSON.stringify(preferences));
+  const fontSize = getComputedStyle(document.documentElement).getPropertyValue(
+    "--font-size"
+  );
+  const preferences = {
+    darkMode: darkModeToggle.checked,
+    fontSize: fontSize,
+    category: currentCategory,
+  };
+  localStorage.setItem("quoteGeneratorPrefs", JSON.stringify(preferences));
 }
 function loadPreferences() {
-    const savedPrefs = localStorage.getItem('quoteGeneratorPrefs');
-    if (savedPrefs) {
-        const prefs = JSON.parse(savedPrefs);
-        darkModeToggle.checked = prefs.darkMode;
-        document.body.classList.toggle("dark-mode", prefs.darkMode);
-        if (prefs.fontSize) {
-            document.documentElement.style.setProperty('--font-size', prefs.fontSize);
-        }
-        if (prefs.category) {
-            currentCategory = prefs.category;
-            categorySelect.value = prefs.category;
-        }
+  const savedPrefs = localStorage.getItem("quoteGeneratorPrefs");
+  if (savedPrefs) {
+    const prefs = JSON.parse(savedPrefs);
+    darkModeToggle.checked = prefs.darkMode;
+    document.body.classList.toggle("dark-mode", prefs.darkMode);
+    if (prefs.fontSize) {
+      document.documentElement.style.setProperty("--font-size", prefs.fontSize);
     }
+    if (prefs.category) {
+      currentCategory = prefs.category;
+      categorySelect.value = prefs.category;
+    }
+  }
 }
 document.addEventListener("DOMContentLoaded", initApp);
